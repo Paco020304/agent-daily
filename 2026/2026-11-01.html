@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><title>AI Agent 论文日报｜2026 年 11 月 1 日</title></head>
+<body style="margin:0;padding:24px;background:#ffffff;font-family:-apple-system,'PingFang SC','Microsoft YaHei',Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.75;font-size:15px;">
+<div style="max-width:820px;margin:0 auto;">
+
+<h1 style="font-size:26px;margin:0 0 4px;font-weight:700;">AI Agent 论文日报｜2026 年 11 月 1 日</h1>
+<div style="color:#6b7280;font-size:13px;margin-bottom:20px;">星期日 · 北京时间 · 最新研究精选</div>
+
+<p style="font-weight:700;margin:0 0 14px;">今日核心判断：Harness 正在从工程细节变成可学习的对象，评测转向“非平稳”环境，轻量级记忆选择正在胜过 LLM 加工式记忆，成本意识进入 Agent 方法设计。</p>
+
+<p style="margin:0 0 18px;">本期最重要的几项进展：Rethinking Verification 在 17 种设计的对照中发现<b>独立 critic 评审的性价比最好</b>；CoHARL 在 RL 训练中让策略与可执行 harness 共同演化，SWE-rebench 比只搜索 harness 高 6.4pp；WorkFactory 构造 112,686 个职场任务并开放数据和模型；Gym-Anything-RT 与 Δτ-Bench 分别从实时性与工具生态演化两个角度表明，<b>Agent 在变化环境中的适应能力仍然很弱</b>；记忆方向上，AgentMemRec 与 AMIE 用零或少量 LLM 调用超过了 A-Mem、Mem0、Zep 等系统。</p>
+
+<table role="presentation" cellspacing="0" cellpadding="0" style="width:100%;border-collapse:separate;border-spacing:8px 0;margin:0 -8px 26px;">
+<tr>
+<td style="width:33%;border:1px solid #e5e7eb;border-radius:10px;padding:12px 14px;vertical-align:top;">
+<div style="font-size:12px;color:#6b7280;">独立 critic 评审 · Terminal-Bench</div>
+<div style="font-size:24px;font-weight:700;margin:2px 0;">+5.9–9.5pp</div>
+<div style="font-size:12px;color:#6b7280;">成本为基线的 1.13–1.25 倍</div></td>
+<td style="width:33%;border:1px solid #e5e7eb;border-radius:10px;padding:12px 14px;vertical-align:top;">
+<div style="font-size:12px;color:#6b7280;">WorkPilot-35B-A3B · GDPval-AA v2.1</div>
+<div style="font-size:24px;font-weight:700;margin:2px 0;">879 → 1565 Elo</div>
+<div style="font-size:12px;color:#6b7280;">基于 112,686 个任务、612 个职业</div></td>
+<td style="width:33%;border:1px solid #e5e7eb;border-radius:10px;padding:12px 14px;vertical-align:top;">
+<div style="font-size:12px;color:#6b7280;">Gym-Anything-RT 实时模式通过率</div>
+<div style="font-size:24px;font-weight:700;margin:2px 0;">9.0%</div>
+<div style="font-size:12px;color:#6b7280;">GPT-6 Astra（xHigh），暂停后 75.0%</div></td>
+</tr></table>
+
+<h2 style="font-size:20px;margin:0 0 10px;">今日检索说明</h2>
+<p style="margin:0 0 12px;">今天是周日，<b>arXiv 没有新批次</b>。最近一批仍是 <b>10-29（UTC）</b>提交的论文，已在上一份日报中覆盖。因此今天按规则扩展到近 7 天（10-24 至 10-29）。</p>
+
+<table cellspacing="0" cellpadding="0" style="width:100%;border-collapse:collapse;font-size:14px;margin-bottom:12px;">
+<tr style="border-bottom:1px solid #d1d5db;">
+<th style="text-align:left;padding:8px 4px;">数据来源</th><th style="text-align:left;padding:8px 4px;">时间窗口 / 说明</th></tr>
+<tr style="border-bottom:1px solid #eef0f2;"><td style="padding:8px 4px;">arXiv API 和摘要原文</td><td style="padding:8px 4px;">近 7 天（10-24 至 10-29）；最近批次为 10-29（UTC），周日无新批次</td></tr>
+<tr style="border-bottom:1px solid #eef0f2;"><td style="padding:8px 4px;">HF Daily Papers</td><td style="padding:8px 4px;">同上时间窗口</td></tr>
+</table>
+<p style="margin:0 0 12px;">原文未提供各分类的新投稿数与全部记录数。文中数字均为作者报告，未经复现。Top 5 与记忆专题主推论文的首次提交日期在 <b>10 月 25—27 日</b>，其余论文均选自 10-24 至 10-29 窗口。</p>
+<p style="margin:0 0 26px;">去重说明：只选上一份日报没写过的论文；“重复关注”条目：无。</p>
+
+<h2 style="font-size:20px;margin:0 0 6px;">A. 今日最重要的 Agent 论文 Top 5</h2>
+
+<div style="border-top:1px solid #e5e7eb;padding:14px 0;">
+<div style="font-weight:700;font-size:16px;">1. Rethinking Verification in Agent Harnesses</div>
+<div style="color:#6b7280;font-size:13px;">Zhengxin Zhang、Erkang Zhu、Claire Cardie、Bolin Ding、Jingren Zhou 等（根据作者名单推断来自阿里巴巴和 Cornell，论文中的机构信息未逐一核对） ｜ 2026-10-25 ｜ <a href="https://arxiv.org/abs/2610.34577" style="color:#2563eb;">arxiv.org/abs/2610.34577</a></div>
+<p style="margin:6px 0 4px;"><b>核心贡献：</b>把“验证”当作测试时扩展的一个维度，系统研究三个问题：什么时候介入、由谁检查、检查后怎么修改。</p>
+<p style="margin:4px 0 0;"><b>关键技术：</b></p>
+<ul style="margin:0 0 6px;padding-left:22px;">
+<li>把验证分成四层：初始指令、执行中提醒、完成门控、独立评审；</li>
+<li>在 Terminal-Bench 和 SWE-bench Verified 上，用 7 个前沿编码模型对比 17 种设计；</li>
+<li>新建 VisualBench，用于专家评估视觉和交互类产物。</li>
+</ul>
+<p style="margin:4px 0 0;"><b>主要结果（摘要）：</b></p>
+<ul style="margin:0 0 6px;padding-left:22px;">
+<li>初始指令和执行中提醒的收益不大，而且依赖具体模型；</li>
+<li>完成门控收益更大，但成本可能显著上升；</li>
+<li>独立 critic 评审的性价比最好：Terminal-Bench 上提升 5.9–9.5pp，成本为基线的 1.13–1.25 倍；SWE-bench Verified 上提升 3.9–6.6pp，成本为 1.00–1.04 倍；</li>
+<li>增加评审轮次或增加独立 critic，Terminal-Bench 还能再提升最多 3.5pp。</li>
+</ul>
+<p style="margin:4px 0;"><b>为什么重要：</b>第一次给 harness 中“验证放在哪里”提供了大规模对照证据，结论可以直接落到 Claude Code 或 OpenHands 类 harness 的设计上。</p>
+<p style="margin:4px 0;"><b>未来影响：</b>在推理预算有限时，优先投到独立评审，而不是更长的 prompt。</p>
+<p style="margin:4px 0 0;"><b>开源状态：</b>摘要未给出代码链接。</p>
+</div>
+
+<div style="border-top:1px solid #e5e7eb;padding:14px 0;">
+<div style="font-weight:700;font-size:16px;">2. WorkFactory: Turning Professional Intents into Executable Work for Scalable Agent Training</div>
+<div style="color:#6b7280;font-size:13px;">Ziyang Zeng、Tao Ren、Wayne Xin Zhao 等（IQuestLab，与人大赵鑫合作；与上一份日报中的 MPO 是同一团队） ｜ 2026-10-27 ｜ <a href="https://arxiv.org/abs/2610.37161" style="color:#2563eb;">arxiv.org/abs/2610.37161</a> ｜ 代码与数据：<a href="https://github.com/IQuestLab/WorkFactory" style="color:#2563eb;">github.com/IQuestLab/WorkFactory</a></div>
+<p style="margin:6px 0 4px;"><b>核心贡献：</b>从“专业意图”出发，自动构造信息完整、可以执行的职场任务。</p>
+<p style="margin:4px 0 0;"><b>关键技术：</b></p>
+<ul style="margin:0 0 6px;padding-left:22px;">
+<li>信息级规划：构建“信息支撑图”，显式表示产出需要哪些信息、放在哪里；</li>
+<li>用探针执行检测信息缺失并修复。</li>
+</ul>
+<p style="margin:4px 0 0;"><b>主要结果：</b></p>
+<ul style="margin:0 0 6px;padding-left:22px;">
+<li>构造了 112,686 个任务，覆盖 612 个职业；</li>
+<li>在 Qwen 4B、27B、35B-A3B 上微调得到 WorkPilot 系列；</li>
+<li>WorkPilot-35B-A3B 在 GDPval-AA v2.1 上从 879 Elo 提升到 1565 Elo；</li>
+<li>扩展分析显示收益递减程度随模型不同而不同，执行长度先增后减。</li>
+</ul>
+<p style="margin:4px 0;"><b>为什么重要：</b>Work Agent（GDPval 类）是今年的主战场，这是少数开放了数据和模型的大规模任务工厂。</p>
+<p style="margin:4px 0 0;"><b>开源状态：</b>数据和模型已开放。</p>
+</div>
+
+<div style="border-top:1px solid #e5e7eb;padding:14px 0;">
+<div style="font-weight:700;font-size:16px;">3. CoHARL: Co-Evolving Agent Policies and Executable Harnesses with RL</div>
+<div style="color:#6b7280;font-size:13px;">Jianwen Chen、Peng Xia、Huaxiu Yao 等（Huaxiu Yao 为 UNC） ｜ 2026-10-27 ｜ <a href="https://arxiv.org/abs/2610.36469" style="color:#2563eb;">arxiv.org/abs/2610.36469</a></div>
+<p style="margin:6px 0 4px;"><b>核心贡献：</b>在 RL 训练过程中，让共享策略和一组可执行 harness 一起演化。proposer 读取执行轨迹，在训练期间直接改写 harness 代码。</p>
+<p style="margin:4px 0 0;"><b>主要结果（摘要）：</b></p>
+<ul style="margin:0 0 6px;padding-left:22px;">
+<li>SWE-rebench 平均解决率 27.6%，比只搜索 harness 高 6.4pp；</li>
+<li>SWE-bench Verified 和 Terminal-Bench 2.0 上也有提升；</li>
+<li>在相同训练预算下，优于“RL 前先搜一次 harness”和“交替更新单个 harness”两种做法。</li>
+</ul>
+<p style="margin:4px 0;"><b>为什么重要：</b>和同期理论工作 Your Policy Is Secretly a Harness（<a href="https://arxiv.org/abs/2610.37255" style="color:#2563eb;">2610.37255</a>）的结论一致：策略会吸收训练时 harness 的偏好，所以 harness 和策略应该联合优化。</p>
+<p style="margin:4px 0 0;"><b>开源状态：</b>未见代码链接。</p>
+</div>
+
+<div style="border-top:1px solid #e5e7eb;padding:14px 0;">
+<div style="font-weight:700;font-size:16px;">4. Gym-Anything-RT: Scaling Real-Time Environments for Vision-Language Agents</div>
+<div style="color:#6b7280;font-size:13px;">Pranjal Aggarwal、Sean Welleck（CMU） ｜ 2026-10-27 ｜ <a href="https://arxiv.org/abs/2610.37567" style="color:#2563eb;">arxiv.org/abs/2610.37567</a></div>
+<p style="margin:6px 0 4px;"><b>核心贡献：</b>用 Agent 流水线，按六类实时能力自动生成视觉小游戏。同一个游戏可以实时运行，也可以暂停或减速，从而把“实时性”单独拿出来对比。</p>
+<p style="margin:4px 0 0;"><b>主要结果：</b></p>
+<ul style="margin:0 0 6px;padding-left:22px;">
+<li>共 100 个实时小游戏；</li>
+<li>GPT-6 Astra（xHigh）在实时模式下通过率只有 9.0%，暂停环境后升到 75.0%。</li>
+</ul>
+<p style="margin:4px 0;"><b>为什么重要：</b>直接量化了“思考越久越好”这一范式在实时交互（Computer Use、游戏、具身）中失效的程度。</p>
+<p style="margin:4px 0;"><b>未来影响：</b>会推动快慢双系统、推理预算感知的动作策略、流式推理等方向。</p>
+<p style="margin:4px 0 0;"><b>开源状态：</b>摘要未给出链接。</p>
+</div>
+
+<div style="border-top:1px solid #e5e7eb;padding:14px 0;">
+<div style="font-weight:700;font-size:16px;">5. Δτ-Bench: Pushing Agents Toward a Moving Capability</div>
+<div style="color:#6b7280;font-size:13px;">Shuofei Qiao、Shumin Deng 等（浙大 ZJUNLP） ｜ 2026-10-25 ｜ <a href="https://arxiv.org/abs/2610.34238" style="color:#2563eb;">arxiv.org/abs/2610.34238</a> ｜ GitHub：zjunlp/delta-tau-bench</div>
+<p style="margin:6px 0 4px;"><b>核心贡献：</b>模拟工具生态的持续演化：旧工具会消失或被替换，同时出现功能重叠、更高效的新工具，文档也带噪声。</p>
+<p style="margin:4px 0;"><b>规模：</b>1,588 个多轮任务，42 个领域，6 个连续的生态状态。</p>
+<p style="margin:4px 0 0;"><b>主要结果：</b></p>
+<ul style="margin:0 0 6px;padding-left:22px;">
+<li>最强的模型或 harness 也只有 42.3% 成功率；</li>
+<li>现有 skill 学习方法的初期收益在生态变化后无法稳定保持；</li>
+<li>作者提出 Steward，联合管理工具和程序性知识（增量维护 skill、执行时动态提供），在生态变化中保持更高成功率，维护开销更低。</li>
+</ul>
+<p style="margin:4px 0;"><b>为什么重要：</b>直接检验 procedural memory 能否及时更新，和下面 B 部分的“记忆失效”主题强相关。</p>
+<p style="margin:4px 0 0;"><b>开源状态：</b>仓库已建立；论文标注为 work in progress。</p>
+</div>
+
+<h2 style="font-size:20px;margin:18px 0 6px;">B. Agent Memory 专题</h2>
+
+<div style="border-top:1px solid #e5e7eb;padding:14px 0;">
+<div style="font-weight:700;font-size:16px;">今日主推：Agent Memory as Recommendation（AgentMemRec）</div>
+<div style="color:#6b7280;font-size:13px;">Xinyu Zhang、Weiwei Sun ｜ 2026-10-26 ｜ <a href="https://arxiv.org/abs/2610.34673" style="color:#2563eb;">arxiv.org/abs/2610.34673</a></div>
+<p style="margin:6px 0 4px;"><b>方法：</b>把记忆选择形式化为“带预算的 slate 推荐”：请求相当于用户，记忆条目相当于物品，上下文窗口相当于 slate。然后照搬推荐系统的级联结构：候选召回、学习排序、slate 构造，全程不调用 LLM。</p>
+<p style="margin:4px 0 0;"><b>相对已有工作的改进：</b></p>
+<ul style="margin:0 0 6px;padding-left:22px;">
+<li>在 LongMemEval 多会话问题上，比 A-Mem、HippoRAG 2、DynamicRAG、T-Mem 高 10–31 个准确率点；</li>
+<li>效果与每次查询调用 64 次 LLM 的重排器相当，服务成本低 3.2 倍；</li>
+<li>在 LoCoMo 上，零 LLM 调用即优于 Mem0 和 Zep。</li>
+</ul>
+<p style="margin:4px 0;"><b>意义：</b>和上一份日报的 Memory Tax 互相印证：昂贵的 LLM 记忆加工不一定划算，而推荐系统几十年的工程经验可以直接迁移过来。</p>
+<p style="margin:4px 0 0;"><b>复现资源：</b>摘要未给出链接。</p>
+</div>
+
+<h3 style="font-size:17px;margin:10px 0 4px;">其他值得看的记忆工作</h3>
+
+<div style="border-top:1px solid #e5e7eb;padding:12px 0;">
+<div style="font-weight:700;">检索访问层的演化：AMIE</div>
+<div style="color:#6b7280;font-size:13px;"><a href="https://arxiv.org/abs/2610.34977" style="color:#2563eb;">2610.34977</a> ｜ 10-26</div>
+<ul style="margin:6px 0 0;padding-left:22px;">
+<li>不修改记忆内容，只演化每条记忆的“访问状态”，作为插件层工作；</li>
+<li>在 5 个宿主系统、3 个基准上，15 组对比全部提升（0.70–3.37pp，相对提升最高 25%）；</li>
+<li>一个意外发现：只累计检索频率、零 LLM 调用的策略，在多个设置下就能和语义策略打平甚至更好。</li>
+</ul></div>
+
+<div style="border-top:1px solid #e5e7eb;padding:12px 0;">
+<div style="font-weight:700;">主动记忆：ProactMem</div>
+<div style="color:#6b7280;font-size:13px;"><a href="https://arxiv.org/abs/2610.36967" style="color:#2563eb;">2610.36967</a></div>
+<ul style="margin:6px 0 0;padding-left:22px;">
+<li>把历史分成三层：近期事件、时间轨迹、行为规律；行为规律要先经过历史回放验证再使用；</li>
+<li>在自建的 ProactiveStream 上 F1 为 52.6%，比最强基线相对提升 21.4%。</li>
+</ul></div>
+
+<div style="border-top:1px solid #e5e7eb;padding:12px 0;">
+<div style="font-weight:700;">多 Agent 记忆的修正与使用边界：DiscernMem</div>
+<div style="color:#6b7280;font-size:13px;"><a href="https://arxiv.org/abs/2610.36652" style="color:#2563eb;">2610.36652</a></div>
+<ul style="margin:6px 0 0;padding-left:22px;">
+<li>对比“带单条记忆”和“不带记忆”两种执行，诊断记忆规则本身的缺陷并修复；</li>
+<li>同时为每条记忆学习“什么情况下该用、什么情况下不该用”。</li>
+</ul></div>
+
+<div style="border-top:1px solid #e5e7eb;padding:12px 0;">
+<div style="font-weight:700;">结构化 episodic memory：EMMA</div>
+<div style="color:#6b7280;font-size:13px;"><a href="https://arxiv.org/abs/2610.35966" style="color:#2563eb;">2610.35966</a> ｜ Rose Yu 等</div>
+<p style="margin:6px 0 0;">为多 Agent 工作流演化定义明确的更新规则。</p></div>
+
+<div style="border-top:1px solid #e5e7eb;padding:12px 0;">
+<div style="font-weight:700;">潜空间 skill 记忆：SkillMem</div>
+<div style="color:#6b7280;font-size:13px;"><a href="https://arxiv.org/abs/2610.37935" style="color:#2563eb;">2610.37935</a> ｜ IBM 的 Pin-Yu Chen 等</div>
+<p style="margin:6px 0 0;">把 skill 存成小型外部潜记忆，通过跨注意力读取，避免文本 skill 被反复处理，也避免按层存 KV 的大开销。</p></div>
+
+<div style="border-top:1px solid #e5e7eb;padding:12px 0;">
+<div style="font-weight:700;">Context 压缩与 Cache 的冲突：The Hidden Costs of Forgetting</div>
+<div style="color:#6b7280;font-size:13px;"><a href="https://arxiv.org/abs/2610.35496" style="color:#2563eb;">2610.35496</a> ｜ Michael Pradel 等</div>
+<ul style="margin:6px 0 0;padding-left:22px;">
+<li>在 SWE-bench Verified 上跑了 9,400 次，覆盖 42 种轨迹删减配置；</li>
+<li>延迟删除（甚至删掉 100% 的推理文本）可以保持效果，但立即删除会明显掉点；</li>
+<li>按统一定价，42 组中有 26 组成本下降；按缓存感知定价，没有一组成本下降，因为删减破坏了缓存前缀。</li>
+<li>这是本周对“上下文工程和 Prompt Cache 存在冲突”最直接的实证。</li>
+</ul></div>
+
+<div style="border-top:1px solid #e5e7eb;padding:12px 0;">
+<div style="font-weight:700;">安全</div>
+<ul style="margin:6px 0 0;padding-left:22px;">
+<li>Self-evolution 降低个人 Agent 对间接提示注入的鲁棒性（<a href="https://arxiv.org/abs/2610.39122" style="color:#2563eb;">2610.39122</a>，Chaowei Xiao 组）：在 skill 演化下攻击成功率上升 14.0–48.8pp，在 RL 下上升 3.0–39.3pp；代码：SaFo-Lab/Evolve-IPI。</li>
+<li>Poisoned Skills（<a href="https://arxiv.org/abs/2610.37738" style="color:#2563eb;">2610.37738</a>）：在 SKILL.md 中注入越狱内容，7 个开源模型的平均攻击成功率从 0.5% 升到 45%，单模型最高 68.9%。</li>
+</ul></div>
+
+<h3 style="font-size:17px;margin:10px 0 4px;">与主要技术路线的关系</h3>
+<ul style="margin:0 0 14px;padding-left:22px;">
+<li><b>MemGPT/Letta</b>：AgentMemRec 和 AMIE 都说明，“分页”之外，选哪些记忆进上下文是一个可以独立优化的排序问题。</li>
+<li><b>G-Memory 等图或层级记忆</b>：EMMA 和 DiscernMem 在多 Agent 层级记忆上补上了“更新规则”和“使用边界”。</li>
+<li><b>Agentic Plan Caching、Cache 复用</b>：轨迹删减研究显示，压缩上下文必须考虑缓存前缀的完整性，否则省下的 token 反而更贵。</li>
+<li><b>RAG</b>：零 LLM 调用的推荐或检索式方法正在逼近，甚至超过 LLM 加工式的记忆系统。</li>
+</ul>
+
+<h2 style="font-size:20px;margin:18px 0 6px;">C. 其他值得关注的新论文</h2>
+
+<h3 style="font-size:17px;margin:10px 0 4px;">Computer Use 与 Web</h3>
+<div style="border-top:1px solid #e5e7eb;padding:12px 0;">
+<div style="font-weight:700;">OS-Wizard</div>
+<div style="color:#6b7280;font-size:13px;"><a href="https://arxiv.org/abs/2610.33907" style="color:#2563eb;">2610.33907</a></div>
+<p style="margin:6px 0 0;">在专业桌面软件上做教程引导的探索，使用 GUI 和代码混合的动作空间，收集 10.9K 条轨迹。专业工作流基准提升 58.2pp，达到 64.1%，超过报告的人类水平 59.8%。</p></div>
+<div style="border-top:1px solid #e5e7eb;padding:12px 0;">
+<div style="font-weight:700;">WebAnything</div>
+<div style="color:#6b7280;font-size:13px;"><a href="https://arxiv.org/abs/2610.37786" style="color:#2563eb;">2610.37786</a> ｜ 作者包括 Chaoyun Zhang 等</div>
+<p style="margin:6px 0 0;">从真实 URL 自动重建可重置的网站环境，共 244 个站点。Qwen3.5-9B 微调后，WebArena-Verified 提升 13.33pp；代码已开源。</p></div>
+<div style="border-top:1px solid #e5e7eb;padding:12px 0;">
+<div style="font-weight:700;">InteractiveWorld</div>
+<div style="color:#6b7280;font-size:13px;"><a href="https://arxiv.org/abs/2610.33966" style="color:#2563eb;">2610.33966</a> ｜ Meta，facebookresearch</div>
+<p style="margin:6px 0 0;">AI 助手指导人类完成物理任务的闭环可验证环境。最强模型在长程指导和规划任务上只有 20% 和 25%。</p></div>
+
+<h3 style="font-size:17px;margin:10px 0 4px;">Agent RL 与训练</h3>
+<div style="border-top:1px solid #e5e7eb;padding:12px 0;">
+<div style="font-weight:700;">SWE-Ladder</div>
+<div style="color:#6b7280;font-size:13px;"><a href="https://arxiv.org/abs/2610.33667" style="color:#2563eb;">2610.33667</a> ｜ 浙大 ｜ 代码已开源</div>
+<p style="margin:6px 0 0;">把修复过程拆成定位、复现、补丁三个阶段，每个阶段用对应的特权证据做 on-policy 自蒸馏。</p></div>
+<div style="border-top:1px solid #e5e7eb;padding:12px 0;">
+<div style="font-weight:700;">ReGE</div>
+<div style="color:#6b7280;font-size:13px;"><a href="https://arxiv.org/abs/2610.33861" style="color:#2563eb;">2610.33861</a> ｜ Wenhu Chen 组</div>
+<p style="margin:6px 0 0;">把多次尝试中记录的经验合成为给新一轮尝试的指导，不更新参数。GPT 平均提升 9.9pp，Claude 平均提升 8.8pp。</p></div>
+
+<h3 style="font-size:17px;margin:10px 0 4px;">Agent Infra 与效率</h3>
+<div style="border-top:1px solid #e5e7eb;padding:12px 0;">
+<div style="font-weight:700;">World Reward Models / ForeCritic</div>
+<div style="color:#6b7280;font-size:13px;"><a href="https://arxiv.org/abs/2610.38439" style="color:#2563eb;">2610.38439</a></div>
+<p style="margin:6px 0 0;">不预测执行结果，直接判断两个程序哪个更好。在 26 个 ML 任务的 12,438 对程序上选对 79.4%，通用 LLM 评判只有 53–62%；接入 AIDE 等 ML Agent 后，任务时间缩短 4.4–7.5 倍。</p></div>
+<div style="border-top:1px solid #e5e7eb;padding:12px 0;">
+<div style="font-weight:700;">What Effort Level Should I Choose?</div>
+<div style="color:#6b7280;font-size:13px;"><a href="https://arxiv.org/abs/2610.34491" style="color:#2563eb;">2610.34491</a></div>
+<p style="margin:6px 0 0;">最高推理档位的成本最多是最低档的 42 倍，而且经常做错低档位能做对的题。</p></div>
+
+<h3 style="font-size:17px;margin:10px 0 4px;">多 Agent</h3>
+<div style="border-top:1px solid #e5e7eb;padding:12px 0;">
+<div style="font-weight:700;">Coordination Tax</div>
+<div style="color:#6b7280;font-size:13px;"><a href="https://arxiv.org/abs/2610.37700" style="color:#2563eb;">2610.37700</a></div>
+<p style="margin:6px 0 0;">在 HumanEval 和 ClassEval 上，planner-coder-reviewer 流水线的成本是单次强模型调用的 3.22 倍，却没有多解决任何任务。</p></div>
+<div style="border-top:1px solid #e5e7eb;padding:12px 0;">
+<div style="font-weight:700;">Inbox as a Coordination Primitive</div>
+<div style="color:#6b7280;font-size:13px;"><a href="https://arxiv.org/abs/2610.36264" style="color:#2563eb;">2610.36264</a> ｜ MIT Ramesh Raskar 组</div>
+<p style="margin:6px 0 0;">用“拉取式收件箱”替代“推送式消息”，在最多 16,000 个 Agent 的模拟社会中验证。</p></div>
+
+<h3 style="font-size:17px;margin:10px 0 4px;">评测</h3>
+<div style="border-top:1px solid #e5e7eb;padding:12px 0;">
+<div style="font-weight:700;">Continual Learning Exam</div>
+<div style="color:#6b7280;font-size:13px;"><a href="https://arxiv.org/abs/2610.33956" style="color:#2563eb;">2610.33956</a></div>
+<p style="margin:6px 0 0;">120 个任务，每个分 5 级，共 600 级。最好的系统只通过 47.7% 的级别，只有 23.3% 的任务能全部通关。</p></div>
+<div style="border-top:1px solid #e5e7eb;padding:12px 0;">
+<div style="font-weight:700;">kw-bench</div>
+<div style="color:#6b7280;font-size:13px;"><a href="https://arxiv.org/abs/2610.36405" style="color:#2563eb;">2610.36405</a> ｜ 代码已开源</div>
+<p style="margin:6px 0 0;">调查型知识工作基准（审计、税务、尽调等）。</p></div>
+
+<h3 style="font-size:17px;margin:10px 0 4px;">Coding Agent</h3>
+<div style="border-top:1px solid #e5e7eb;padding:12px 0;">
+<div style="font-weight:700;">How Do Coding-Agent Harnesses Self-Evolve?</div>
+<div style="color:#6b7280;font-size:13px;"><a href="https://arxiv.org/abs/2610.34938" style="color:#2563eb;">2610.34938</a></div>
+<p style="margin:6px 0 0;">让 Claude Code 复盘会话并提出 harness 改动，共 125 条提案；在 12 项实际评估的改动中，只有少数真正减少了重复工作。</p></div>
+
+<h2 style="font-size:20px;margin:18px 0 8px;">D. 今日趋势判断</h2>
+<ol style="margin:0 0 14px;padding-left:22px;">
+<li><b>Harness 从工程细节变成可学习的对象</b>：CoHARL（联合 RL）、Your Policy Is Secretly a Harness（理论）、Rethinking Verification（验证设计）、RuHarness（<a href="https://arxiv.org/abs/2610.36826" style="color:#2563eb;">2610.36826</a>，rubric 与 harness 共演化），加上上一份日报的 Trial by Trace，说明这个方向在加速。</li>
+<li><b>“非平稳”评测成为主流</b>：Δτ-Bench（工具生态演化）、Continual Learning Exam（经验累积）、Gym-Anything-RT（实时环境）都在考 Agent 在变化中的适应能力，而不是静态的单次成功率。</li>
+<li><b>轻量级记忆选择正在胜过 LLM 加工式记忆</b>：AgentMemRec 和 AMIE 都用零或少量 LLM 调用超过了 A-Mem、Mem0、Zep 等系统，延续了 Memory Tax 的论点。</li>
+<li><b>成本意识进入 Agent 方法设计</b>：缓存感知定价、推理档位的经济学、多 Agent 协调成本这三项研究都表明，只看 token 数量会误导结论。</li>
+</ol>
+
+<h2 style="font-size:20px;margin:18px 0 8px;">E. 研究机会</h2>
+<p style="margin:0 0 4px;"><b>1. 缓存感知的上下文压缩（Agent Memory / Infra）</b></p>
+<ul style="margin:0 0 12px;padding-left:22px;">
+<li>设计“只在 cache 断点之后做压缩”的轨迹删减策略，或者“重排后可复用前缀”的策略；</li>
+<li>在 SWE-bench Verified 上，用缓存感知定价衡量真实成本，可以直接复用 2610.35496 的实验设置；</li>
+<li>适合写一篇短文，或者做成 OpenHands / SWE-agent 的插件。</li>
+</ul>
+<p style="margin:0 0 4px;"><b>2. 记忆的“推荐系统化”开源基线</b></p>
+<ul style="margin:0 0 12px;padding-left:22px;">
+<li>把 AgentMemRec 的级联（召回、排序、slate）和 AMIE 的访问状态演化合成一个零 LLM 调用的记忆库；</li>
+<li>在 LongMemEval、LoCoMo 以及 Δτ-Bench 的 procedural 任务上和 Mem0、Letta 对比；</li>
+<li>研究问题：推荐系统中的“曝光偏差”和“冷启动”在 Agent 记忆中会怎样表现。</li>
+</ul>
+<p style="margin:0 0 4px;"><b>3. Coding Agent 的验证预算分配</b></p>
+<ul style="margin:0;padding-left:22px;">
+<li>结合 Rethinking Verification 和 ForeCritic，训练一个小型 pairwise 评审模型，替代昂贵的完成门控；</li>
+<li>在 Terminal-Bench 上画出“准确率–成本”的 Pareto 曲线；</li>
+<li>再结合 CoHARL，检验评审是否应该随策略训练一起演化。</li>
+</ul>
+
+</div></body></html>
